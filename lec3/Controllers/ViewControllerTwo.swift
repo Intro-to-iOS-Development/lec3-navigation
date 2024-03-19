@@ -47,7 +47,7 @@ class ViewControllerTwo: UIViewController {
     
     private func setupTextField() {
         textField.placeholder = "PLACEHOLDER"
-
+        
         view.addSubview(textField)
         textField.translatesAutoresizingMaskIntoConstraints = false
         
@@ -60,7 +60,7 @@ class ViewControllerTwo: UIViewController {
     // MARK: - Button Helpers
     
     @objc private func popVC() {
-        // TODO: Pop this ViewController
+        navigationController?.popViewController(animated: true)
     }
 
 }
