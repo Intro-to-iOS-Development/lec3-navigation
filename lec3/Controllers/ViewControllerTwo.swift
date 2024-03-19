@@ -14,6 +14,11 @@ class ViewControllerTwo: UIViewController {
     private let popVCButton = UIButton()
     private let textField = UITextField()
     
+    // MARK: - Properties (data)
+    
+    private var text: String
+    private weak var updateTextDelegate: UpdateTextDelegate?
+    
     // MARK: - viewDidLoad and init
 
     override func viewDidLoad() {
@@ -24,6 +29,16 @@ class ViewControllerTwo: UIViewController {
         
         setupPopVCButton()
         setupTextField()
+    }
+    
+    init(text: String, updateTextDelegate: UpdateTextDelegate) {
+        self.text = text
+        self.updateTextDelegate = updateTextDelegate
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Setup Views
@@ -46,7 +61,7 @@ class ViewControllerTwo: UIViewController {
     }
     
     private func setupTextField() {
-        textField.placeholder = "PLACEHOLDER"
+        textField.placeholder = text
         
         view.addSubview(textField)
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -61,7 +76,7 @@ class ViewControllerTwo: UIViewController {
     
     @objc private func popVC() {
         navigationController?.popViewController(animated: true)
+        updateTextDelegate?.updateText(newText: textField.text ?? "")
     }
 
 }
-

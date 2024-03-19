@@ -15,6 +15,7 @@ class ViewControllerOne: UIViewController {
     private let textLabel = UILabel()
     
     // MARK: - Properties (data)
+    
     private var text: String = "CHANGE ME"
     
     // MARK: - viewDidLoad
@@ -64,8 +65,23 @@ class ViewControllerOne: UIViewController {
     // MARK: - Button Helpers
     
     @objc private func pushVC() {
-        let viewController2 = ViewControllerTwo()
+        let viewController2 = ViewControllerTwo(text: text, updateTextDelegate: self)
         navigationController?.pushViewController(viewController2, animated: true)
     }
 
+}
+
+// MARK: - UpdateTextDelegate
+
+extension ViewControllerOne: UpdateTextDelegate {
+
+    func updateText(newText: String) {
+        text = newText
+        textLabel.text = text
+    }
+    
+}
+
+protocol UpdateTextDelegate: AnyObject {
+    func updateText(newText: String)
 }
